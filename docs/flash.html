@@ -13,22 +13,24 @@
 
     // Request a serial port and create the loader
     async function connect() {
+      // Request the serial port from the browser
       port = await navigator.serial.requestPort();
-      await port.open({ baudRate: 115200 });
-
+      // Don't call port.open() here — esptool-js will do that for you
       const transport = new Transport(port);
+
       loader = new ESPLoader({
         transport,
         baudrate: 115200,
         terminal: {
           clean() {},
           writeLine: msg => log(msg),
-          write: msg => log(msg)
+          write: msg => log(msg),
         },
         debugLogging: false
       });
 
-      const chip = await loader.main(); // connect, detect chip and run stub
+      // loader.main() will call transport.connect() internally and open the port
+      const chip = await loader.main();
       log(`Connected to: ${chip}`);
     }
 
