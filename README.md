@@ -121,7 +121,3 @@ Based on work from:
 Fork maintained and extended by **x0SiN0x**.
 
 ---
-
-## 📎 License
-
-MIT License (see `LICENSE` file).
