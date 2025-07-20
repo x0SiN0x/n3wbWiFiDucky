@@ -6,14 +6,15 @@
   <title>Flash Device</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module">
-    import { ESPLoader } from './esptool.js';
+    import { ESPLoader, TransportWebSerial } from './esptool.js';
 
     let port, loader;
 
     async function connect() {
       port = await navigator.serial.requestPort();
       await port.open({ baudRate: 115200 });
-      loader = new ESPLoader(port, { log });
+      const transport = new TransportWebSerial(port);
+      loader = new ESPLoader(transport, { log });
       await loader.initialize();
       const chip = await loader.chipName();
       log(`Connected to: ${chip}`);
