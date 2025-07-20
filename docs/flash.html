@@ -19,25 +19,89 @@
       log(`Connected to: ${chip}`);
     }
 
-    async function flash() {
-      const file = document.getElementById("binfile").files[0];
-      if (!file) {
-        log(\"No file selected.\");
-        return;
-      }
-      const arrayBuffer = await file.arrayBuffer();
-      const firmware = new Uint8Array(arrayBuffer);
-      await loader.flashData(0x1000, firmware);
-      log(\"Flashing complete!\");
+    function log(message) {
+      const logEl = document.getElementById("log");
+      logEl.textContent += `\n> ${message}`;
+      logEl.scrollTop = logEl.scrollHeight;
     }
 
-    function log(message) {
-      document.getElementById(\"log\").textContent += `\\n> ${message}`;
+    async function loadReleases() {
+      const releaseType = document.querySelector('input[name="releaseType"]:checked').value;
+      const releaseSelect = document.getElementById("releaseSelect");
+      const deviceSelect = document.getElementById("deviceSelect");
+      releaseSelect.innerHTML = "<option value=''>Loading...</option>";
+      deviceSelect.innerHTML = "<option value=''>Select a release first</option>";
+
+      const response = await fetch("https://api.github.com/repos/x0SiN0x/n3wbWiFiDucky/releases");
+      const releases = await response.json();
+      const filtered = releases.filter(r =>
+        releaseType === 'nightly' ? r.tag_name.startsWith('nightly-') : r.tag_name.startsWith('v')
+      ).slice(0, 30);
+
+      releaseSelect.innerHTML = "<option value=''>Select release</option>";
+      filtered.forEach(rel => {
+        const opt = document.createElement("option");
+        opt.value = rel.tag_name;
+        opt.textContent = `${rel.name || rel.tag_name}`;
+        releaseSelect.appendChild(opt);
+      });
+    }
+
+    async function populateDeviceList() {
+      const tag = document.getElementById("releaseSelect").value;
+      const release = await fetch(`https://api.github.com/repos/x0SiN0x/n3wbWiFiDucky/releases/tags/${tag}`).then(r => r.json());
+      const deviceSelect = document.getElementById("deviceSelect");
+      deviceSelect.innerHTML = "";
+
+      release.assets.forEach(asset => {
+        if (asset.name.endsWith(".zip")) {
+          const opt = document.createElement("option");
+          opt.value = asset.browser_download_url;
+          opt.textContent = asset.name.replace('.zip','').replace(/-/g,' ');
+          deviceSelect.appendChild(opt);
+        }
+      });
+    }
+
+    async function flash() {
+      const url = document.getElementById("deviceSelect").value;
+      if (!url) return log("Please select a device build.");
+
+      const erase = document.getElementById("eraseCheckbox").checked;
+      const zipData = await fetch(url).then(r => r.arrayBuffer());
+      const { unzipSync } = await import("https://cdn.jsdelivr.net/npm/fflate@0.8.0/esm/index.js");
+      const files = unzipSync(new Uint8Array(zipData));
+
+      if (erase) {
+        log("Erasing flash...");
+        await loader.eraseFlash();
+      }
+
+      const segments = [
+        { name: "bootloader.bin", address: 0x0000 },
+        { name: "partitions.bin", address: 0x8000 },
+        { name: "firmware.bin", address: 0x10000 }
+      ];
+
+      for (const { name, address } of segments) {
+        const file = files[name];
+        if (file) {
+          log(`Flashing ${name} to 0x${address.toString(16)}`);
+          await loader.flashData(address, file);
+        } else {
+          log(`Missing ${name} in zip.`);
+        }
+      }
+
+      log("✅ Flash complete.");
     }
 
     window.onload = () => {
-      document.getElementById(\"connectBtn\").onclick = connect;
-      document.getElementById(\"flashBtn\").onclick = flash;
+      document.getElementById("connectBtn").onclick = connect;
+      document.getElementById("flashBtn").onclick = flash;
+      document.getElementsByName("releaseType").forEach(r => r.onchange = loadReleases);
+      document.getElementById("releaseSelect").onchange = populateDeviceList;
+      loadReleases();
     };
   </script>
 </head>
@@ -45,28 +109,40 @@
   <header>
     <h1>ESP32 WiFi Duck - Flasher</h1>
     <nav>
-      <a href=\"index.html\">Home</a>
-      <a href=\"flash.html\">Flash Device</a>
+      <a href="index.html">Home</a>
+      <a href="flash.html">Flash Device</a>
     </nav>
   </header>
 
   <main>
-    <section class=\"panel\">
-      <h2 class=\"label green\">| Flash Your Device</h2>
-      <p>Select your ESP32 binary and flash it directly over USB using Web Serial + esptool-js.</p>
-      <input type=\"file\" id=\"binfile\" accept=\".bin\" /><br><br>
-      <button class=\"btn\" id=\"connectBtn\">🔌 Connect</button>
-      <button class=\"btn blue\" id=\"flashBtn\">⚡ Flash</button>
+    <section class="panel">
+      <h2 class="label green">| Flash Your Device</h2>
+      <p>Select from stable or nightly builds, then choose your device.</p>
+
+      <label><input type="radio" name="releaseType" value="stable"> Latest Stable Release</label>
+      <label><input type="radio" name="releaseType" value="nightly" checked> Nightly Builds</label>
+      <br><br>
+
+      <label for="releaseSelect">Choose release:</label><br>
+      <select id="releaseSelect"></select><br><br>
+
+      <label for="deviceSelect">Choose device type:</label><br>
+      <select id="deviceSelect"></select><br><br>
+
+      <label><input type="checkbox" id="eraseCheckbox"> Erase flash before writing</label><br><br>
+
+      <button class="btn" id="connectBtn">🔌 Connect</button>
+      <button class="btn blue" id="flashBtn">⚡ Flash</button>
     </section>
 
-    <section class=\"panel\">
-      <h2 class=\"label\">| Output Log</h2>
-      <pre id=\"log\">Waiting for connection...</pre>
+    <section class="panel">
+      <h2 class="label">| Output Log</h2>
+      <pre id="log">Waiting for connection...</pre>
     </section>
   </main>
 
   <footer>
-    <p>Flasher powered by <a href=\"https://github.com/espressif/esptool-js\" target=\"_blank\">esptool-js</a></p>
+    <p>Flasher powered by <a href="https://github.com/espressif/esptool-js" target="_blank">esptool-js</a></p>
   </footer>
 </body>
 </html>
