@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flash Your Device</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module">
+    import { EspLoader } from 'https://unpkg.com/esptool-js@latest/dist/web/index.js';
+
+    let port, loader;
+
+    async function connect() {
+      port = await navigator.serial.requestPort();
+      await port.open({ baudRate: 115200 });
+      loader = new EspLoader(port);
+      await loader.connect();
+      const chip = await loader.chipName();
+      document.getElementById("log").textContent += `\\nConnected to: ${chip}`;
+    }
+
+    async function flash() {
+      const file = document.getElementById("binfile").files[0];
+      const arrayBuffer = await file.arrayBuffer();
+      const firmware = new Uint8Array(arrayBuffer);
+      await loader.flashData(0x1000, firmware);
+      document.getElementById("log").textContent += "\\nFlashing complete!";
+    }
+
+    window.onload = () => {
+      document.getElementById("connectBtn").onclick = connect;
+      document.getElementById("flashBtn").onclick = flash;
+    };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>WiFi Duck – Flash Utility</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="flash.html">Flash Device</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <section>
+      <h2>Flash Your ESP32 Device</h2>
+      <p>This tool lets you flash your ESP32-S3-based USB Ducky device directly from the browser using Web Serial + esptool-js.</p>
+
+      <label for="binfile">Select Firmware (.bin):</label><br/>
+      <input type="file" id="binfile" accept=\".bin\" /><br/><br/>
+
+      <button id="connectBtn">🔌 Connect</button>
+      <button id="flashBtn">⚡ Flash</button>
+
+      <pre id="log">Waiting for device...</pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>Flasher powered by <a href="https://github.com/espressif/esptool-js" target="_blank">esptool-js</a> + Web Serial API</p>
+  </footer>
+</body>
+</html>
