@@ -1,10 +1,10 @@
 # N3WB WiFi Ducky
 
 <p align="center">
-    <img alt="WiFi Duck (n3wb edition)" src="web/n3wb_main_evil.png" width="400">
+    <img alt="WiFi Duck (n3wb edition)" src="content/n3wb_main_evil.png" width="400">
 </p>
 <p align="center">
-    <img alt="WiFi Duck (n3wb edition)" src="web/Under-Construction.png" width="300">
+    <img alt="WiFi Duck (n3wb edition)" src="content/Under-Construction.png" width="300">
 </p>
 
 An advanced HID injection platform for the ESP32-S3 featuring:
