@@ -1,0 +1,5 @@
+REM Demonstrates REPEAT loop
+REPEAT 3
+STRING Looping line
+ENTER
+ENDREPEAT

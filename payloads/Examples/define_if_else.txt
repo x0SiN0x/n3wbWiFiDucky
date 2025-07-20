@@ -1,0 +1,9 @@
+REM DEFINE and IF/ELSE example
+DEFINE RUN_TEST true
+IF RUN_TEST == true
+    STRING Test is running
+    ENTER
+ELSE
+    STRING Skipped
+    ENTER
+ENDIF

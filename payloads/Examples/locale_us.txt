@@ -1,0 +1,4 @@
+REM US locale example
+LOCALE US
+STRING Hello World!
+ENTER

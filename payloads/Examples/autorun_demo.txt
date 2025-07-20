@@ -1,0 +1,3 @@
+REM Payload that runs on boot when named autorun.txt
+STRING Autorun triggered!
+ENTER

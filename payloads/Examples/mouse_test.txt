@@ -1,0 +1,6 @@
+REM Mouse movement and clicking
+MOUSEMOVE 50 0
+DELAY 300
+CLICK LEFT
+DELAY 300
+SCROLL 0 5

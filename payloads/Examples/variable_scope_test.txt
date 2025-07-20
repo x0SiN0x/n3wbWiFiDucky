@@ -1,0 +1,9 @@
+REM Nested DEFINE variable scope example
+DEFINE OUTER yes
+IF OUTER == yes
+    DEFINE INNER ok
+    IF INNER == ok
+        STRING Nested OK
+        ENTER
+    ENDIF
+ENDIF

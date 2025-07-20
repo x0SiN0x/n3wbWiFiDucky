@@ -1,0 +1,6 @@
+REM WHILE loop demonstration
+DEFINE FLAG go
+WHILE FLAG == go
+    STRING In loop
+    BREAK
+ENDWHILE

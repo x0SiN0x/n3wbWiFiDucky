@@ -1,0 +1,6 @@
+REM Testing DEFAULT_DELAY with per-line delays
+DEFAULT_DELAY 300
+STRING Start typing
+DELAY 1000
+STRING End
+ENTER

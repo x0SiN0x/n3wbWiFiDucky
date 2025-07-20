@@ -1,0 +1,8 @@
+REM Demonstrates modifier keys
+CTRL ALT DELETE
+DELAY 1000
+GUI r
+STRING cmd
+CTRL SHIFT ENTER
+DELAY 500
+ALT y

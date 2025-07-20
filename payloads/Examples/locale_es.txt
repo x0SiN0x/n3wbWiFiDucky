@@ -1,0 +1,4 @@
+REM Spanish locale example
+LOCALE ES
+STRING ¡Hola señor!
+ENTER

@@ -1,0 +1,113 @@
+REM
+REM Title: Hacker Typer
+REM Author:	x0SiN0x
+REM Description: Opens a harmless website and types like a hacker
+REM Version:	1.0+
+REM Category:	Prank
+REM Respect: UberGuidoZ
+REM
+DELAY 500
+
+REM if os detection is supported this is easier but for now just commenting out non-default (i.e. non windows)
+
+REM open command prompt or terminal
+REM for PARROT OS
+REM GUI t
+REM for standard linux
+REM CTRL-ALT t
+
+REM for windows
+GUI r
+
+DELAY 1000
+
+REM open website
+REM for linux distros
+REM STRING open http://geektyper.com/plain
+REM for windows distros
+STRING http://geektyper.com/plain
+
+DELAY 500
+ENTER
+
+REM put in full screen
+DELAY 3000
+\F11
+
+REM dont type too fast
+KEYDELAY 15
+
+REM starting the fun...
+DELAY 1000
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+KEYDELAY 50
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+KEYDELAY 25
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 1500
+\ARROWRIGHT
+DELAY 1500
+\ARROWLEFT
+DELAY 1500
+STRING 3
+DELAY 1500
+SHIFT
+DELAY 1500
+STRING 1
+DELAY 1500
+STRING 6
+DELAY 1500
+STRING 4
+DELAY 1500
+STRING 2
+DELAY 1500
+STRING 5
+DELAY 1500
+STRING 7
+DELAY 1500
+STRING 9
+DELAY 1500
+STRING 8
+DELAY 500
+KEYDELAY 5
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+KEYDELAY 10
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING 0
+DELAY 500
+KEYDELAY 5
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+KEYDELAY 10
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+\ARROWUP
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+KEYDELAY 50
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 500
+KEYDELAY 5
+STRING qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop
+DELAY 5000
+ALT \F4

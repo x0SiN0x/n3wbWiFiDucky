@@ -1,0 +1,4 @@
+REM French locale with accents
+LOCALE FR
+STRING élève ça
+ENTER

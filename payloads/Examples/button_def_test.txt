@@ -1,0 +1,3 @@
+REM Define button payload
+BUTTON_DEF payloads/HelloWorld.txt
+REM Pressing the hardware button will run HelloWorld
