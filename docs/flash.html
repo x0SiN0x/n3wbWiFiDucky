@@ -5,14 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flash Device</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- import map so esptool-js can find pako -->
+  <script type="importmap">
+  {
+    "imports": {
+      "pako": "https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.esm.mjs"
+    }
+  }
+  </script>
+
+  <!-- main module -->
   <script type="module">
     import { ESPLoader, Transport } from 'https://cdn.jsdelivr.net/npm/esptool-js@0.5.6/lib/index.js';
-    import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js';
-    import CryptoJS from 'https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js';
+    import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/esm/index.js';
+    // If you need an MD5 implementation, import spark-md5 instead of crypto-js:
+    // import SparkMD5 from 'https://cdn.jsdelivr.net/npm/spark-md5@3.0.2/+esm';
 
     let port, loader;
 
-    // Request a serial port and create the loader
     async function connect() {
       port = await navigator.serial.requestPort();
       await port.open({ baudRate: 115200 });
@@ -28,12 +38,10 @@
         },
         debugLogging: false
       });
-
       const chip = await loader.main(); // connect, detect chip and run stub
       log(`Connected to: ${chip}`);
     }
 
-    // Flash a firmware ZIP selected by the user
     async function flash() {
       const url = document.getElementById('deviceSelect').value;
       if (!url) {
@@ -45,7 +53,6 @@
       const zipData = await fetch(url).then(r => r.arrayBuffer());
       const files = unzipSync(new Uint8Array(zipData));
 
-      // Build list of image segments
       const segments = [
         { name: 'bootloader.bin', address: 0x0000 },
         { name: 'partitions.bin', address: 0x8000 },
@@ -75,20 +82,19 @@
           const percent = Math.floor((written / total) * 100);
           log(`Image ${fileIdx + 1}: ${percent}%`);
         }
-        // optional MD5: calculateMD5Hash: img => CryptoJS.MD5(CryptoJS.enc.Latin1.parse(img)).toString()
+        // If you use SparkMD5 above:
+        // calculateMD5Hash: img => SparkMD5.hashBinary(img)
       });
       await loader.after();  // reset the chip so it boots the new firmware
       log('✅ Flash complete.');
     }
 
-    // Append text into the <pre id="log">
     function log(msg) {
       const logEl = document.getElementById('log');
       logEl.textContent += `\n> ${msg}`;
       logEl.scrollTop = logEl.scrollHeight;
     }
 
-    // Hook up UI events on page load
     window.onload = () => {
       document.getElementById('connectBtn').onclick = connect;
       document.getElementById('flashBtn').onclick = flash;
