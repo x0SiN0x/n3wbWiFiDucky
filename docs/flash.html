@@ -6,7 +6,8 @@
   <title>Flash Device</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module">
-    import { ESPLoader, TransportWebSerial } from './esptool.js';
+    import esptool from './esptool.js';
+    const { ESPLoader, TransportWebSerial } = esptool;
 
     let port, loader;
 
