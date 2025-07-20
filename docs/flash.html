@@ -13,11 +13,19 @@
 
     // Request a serial port and create the loader
     async function connect() {
-      // Request the serial port from the browser
+      // Pick the serial port
       port = await navigator.serial.requestPort();
-      // Don't call port.open() here — esptool-js will do that for you
+
+      // Create a Transport with tracing disabled
       const transport = new Transport(port);
 
+      // Open and immediately close the port to flush state (esp-web‑tools does this)
+      await transport.connect(115200);
+      await transport.disconnect();
+      // Small delay before reconnecting
+      await new Promise(res => setTimeout(res, 350));
+
+      // Create loader
       loader = new ESPLoader({
         transport,
         baudrate: 115200,
@@ -29,8 +37,9 @@
         debugLogging: false
       });
 
-      // loader.main() will call transport.connect() internally and open the port
-      const chip = await loader.main();
+      // Because you manually put the device in flash mode, pass 'no_reset' here
+      // so esptool-js doesn’t try to toggle DTR/RTS again.
+      const chip = await loader.main('no_reset');
       log(`Connected to: ${chip}`);
     }
 
