@@ -1,58 +1,118 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>USB WiFi Duck (n3wb edition)</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ESP32 USB Rubber Ducky – Home</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>USB WiFi Duck (n3wb edition)</h1>
+    <h1>ESP32 WiFi Duck</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="flash.html">Flash Device</a>
-      <a href="https://github.com/x0SiN0x/n3wbWiFiDucky" target="_blank">GitHub</a>
+      <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank">GitHub</a>
     </nav>
   </header>
 
-  <main class="content">
-    <section>
-      <h2>About This Project</h2>
-      <p>This project brings the power of USB Rubber Ducky scripting to modern ESP32-S3 hardware, with advanced features like real-time editing, secure activation, and a local web interface. It's a powerful tool for red teamers, automation engineers, and cybersecurity professionals.</p>
+  <main>
+    <section class="panel">
+      <h2 class="label green">| What Is This Project?</h2>
+      <p>This is a modern, open-source reboot of the classic USB Rubber Ducky — but turbocharged for the ESP32. At its core, it turns your ESP32-based development board (like the LilyGO T-Dongle S3) into a powerful, scriptable USB attack platform that supports complex logic, wireless management, and live editing via a self-hosted web interface.</p>
+
+      <p>Instead of requiring compilation or host software, this firmware hosts its own full web interface on the device — just power it on, connect over Wi-Fi, and drop in your payloads.</p>
     </section>
 
-    <section>
-      <h2>Key Features</h2>
+    <section class="panel">
+      <h2 class="label blue">| Who Is It For?</h2>
+      <p>This project is aimed at:</p>
       <ul>
-        <li>DuckyScript v1–v3 support with runtime variables</li>
-        <li>Interactive Web UI (no software needed)</li>
-        <li>On-device storage, script creation and execution</li>
-        <li>USB HID, BLE, and optional mass storage support</li>
-        <li>Secure license activation tied to device IDs</li>
-        <li>Open-source and customizable</li>
+        <li><strong>Penetration testers & red teamers</strong> who need powerful USB HID scripting with stealth</li>
+        <li><strong>Developers</strong> who want to automate USB keyboard/mouse input, clipboard actions, and more</li>
+        <li><strong>Makers & educators</strong> teaching hardware hacking, browser abuse, or keyboard injection</li>
+        <li><strong>ESP32 enthusiasts</strong> who want to experiment with HID/BLE and embedded UI</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Comparison</h2>
+    <section class="panel">
+      <h2 class="label red">| Features at a Glance</h2>
+      <ul>
+        <li>✅ Supports full DuckyScript v1–v3 syntax</li>
+        <li>✅ Built-in variables and flow control (`DEFINE`, `IF`, `WHILE`, etc.)</li>
+        <li>✅ Web-based script editor with real-time execution</li>
+        <li>✅ USB HID keyboard/mouse injector</li>
+        <li>✅ BLE and serial emulation (optional modes)</li>
+        <li>✅ Optional TFT display feedback</li>
+        <li>✅ Device-bound license generation (via MAC/UID)</li>
+        <li>✅ Full local file system (via SPIFFS)</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2 class="label blue">| How It Compares</h2>
       <table>
         <thead>
           <tr><th>Feature</th><th>This Project</th><th>Hak5 Ducky</th><th>MalDuino</th></tr>
         </thead>
         <tbody>
-          <tr><td>Script Language</td><td>Full DuckyScript v1–v3</td><td>v1–v3</td><td>Limited</td></tr>
-          <tr><td>Web Interface</td><td>✅ Self-hosted</td><td>❌</td><td>❌</td></tr>
-          <tr><td>License Binding</td><td>✅ Device-bound</td><td>❌</td><td>❌</td></tr>
-          <tr><td>USB Capabilities</td><td>HID, MSC, BLE</td><td>HID</td><td>HID</td></tr>
+          <tr><td>Scripting</td><td>DuckyScript v1–v3 + Variables</td><td>DuckyScript v1–v3</td><td>v1 subset</td></tr>
+          <tr><td>Web Interface</td><td>✅ Self-hosted on device</td><td>❌</td><td>❌</td></tr>
+          <tr><td>Execution</td><td>Realtime + local edits</td><td>Precompiled payloads</td><td>Hardcoded sketch</td></tr>
+          <tr><td>USB Modes</td><td>HID, MSC, BLE, Serial</td><td>HID</td><td>HID</td></tr>
+          <tr><td>Wireless Access</td><td>Wi-Fi + Web UI</td><td>❌</td><td>❌</td></tr>
+          <tr><td>License System</td><td>MAC/UID-based</td><td>❌</td><td>❌</td></tr>
+          <tr><td>Customization</td><td>Full firmware source</td><td>Closed</td><td>Arduino sketch</td></tr>
         </tbody>
       </table>
+    </section>
+
+    <section class="panel">
+      <h2 class="label green">| Real Use Examples</h2>
+      <p>Here’s how you might use this device in the real world:</p>
+      <ul>
+        <li><strong>Payload 1: Auto-download malware</strong> – Open PowerShell, disable Defender, and pull down a remote script</li>
+        <li><strong>Payload 2: Reverse shell trigger</strong> – Inject keystrokes that call a C2 server</li>
+        <li><strong>Payload 3: Education demo</strong> – Automatically open a webpage and fill out a form with fake data</li>
+        <li><strong>Payload 4: Mass deployment tool</strong> – Preload multiple device setup scripts for factory automation</li>
+      </ul>
+
+      <pre>
+DEFINE ADMIN_PASSWORD = "hunter2"
+DELAY 1000
+GUI r
+DELAY 200
+STRING powershell -NoP -W Hidden -EncodedCommand XYZ...
+ENTER
+      </pre>
+    </section>
+
+    <section class="panel">
+      <h2 class="label red">| Under the Hood</h2>
+      <p>The firmware is built with ESP-IDF and includes:</p>
+      <ul>
+        <li>Custom license key generation (based on MAC, flash UID)</li>
+        <li>Formatter modules for generating 5-part keys</li>
+        <li>SPIFFS filesystem for payload storage</li>
+        <li>ESP USB Host Stack (for HID injection)</li>
+        <li>Web server (ESPAsyncWebServer or Mongoose)</li>
+        <li>Debugging over JTAG + GDB via OpenOCD</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2 class="label blue">| Try It Now</h2>
+      <p>Already have an ESP32 device?</p>
+      <ul>
+        <li>➡️ Go to <a href=\"flash.html\">Flash Page</a></li>
+        <li>➡️ Upload your firmware using Web Serial</li>
+        <li>➡️ Reboot and connect to the WiFi Duck network</li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <p>Hosted on GitHub Pages — <a href="https://github.com/YOUR_USERNAME/YOUR_REPO">View Source</a></p>
+    <p>Made with ❤️ for hackers and builders. © 2025</p>
   </footer>
 </body>
 </html>
