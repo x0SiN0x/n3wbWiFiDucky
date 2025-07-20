@@ -60,6 +60,22 @@ pio run -e esp32-s3-devkitc-8MB-OTA
 # Flash firmware over USB
 pio run -e esp32-s3-devkitc-8MB-OTA -t upload
 ```
+You can always use the pre-built releases as well by simply using a web based flasher
+
+To flash your ESP32 device:
+
+1. Go to [https://esptool.spacehuhn.com/](https://esptool.spacehuhn.com/)
+2. Connect your device over USB and select the correct port
+3. Download the appropriate `.zip` firmware package from [Releases](https://github.com/x0SiN0x/n3wbWiFiDucky/releases)
+4. Extract the `.zip` to get the `.bin` files:
+
+   * `bootloader.bin` → `0x1000`
+   * `partitions.bin` → `0x8000`
+   * `firmware.bin`   → `0x10000`
+5. Use the Web Flasher to upload those files at their respective offsets
+
+No special drivers or tools are needed — works in Chrome/Edge via Web Serial.
+
 
 ---
 
