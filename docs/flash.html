@@ -79,6 +79,44 @@
       log('✅ Flash complete.');
     }
 
+    async function loadReleases() {
+      const releaseType = document.querySelector('input[name="releaseType"]:checked').value;
+      const releaseSelect = document.getElementById("releaseSelect");
+      const deviceSelect = document.getElementById("deviceSelect");
+      releaseSelect.innerHTML = "<option value=''>Loading...</option>";
+      deviceSelect.innerHTML = "<option value=''>Select a release first</option>";
+
+      const response = await fetch("https://api.github.com/repos/x0SiN0x/n3wbWiFiDucky/releases");
+      const releases = await response.json();
+      const filtered = releases.filter(r =>
+        releaseType === 'nightly' ? r.tag_name.startsWith('nightly-') : r.tag_name.startsWith('v')
+      ).slice(0, 30);
+
+      releaseSelect.innerHTML = "<option value=''>Select release</option>";
+      filtered.forEach(rel => {
+        const opt = document.createElement("option");
+        opt.value = rel.tag_name;
+        opt.textContent = `${rel.name || rel.tag_name}`;
+        releaseSelect.appendChild(opt);
+      });
+    }
+
+    async function populateDeviceList() {
+      const tag = document.getElementById("releaseSelect").value;
+      const release = await fetch(`https://api.github.com/repos/x0SiN0x/n3wbWiFiDucky/releases/tags/${tag}`).then(r => r.json());
+      const deviceSelect = document.getElementById("deviceSelect");
+      deviceSelect.innerHTML = "";
+
+      release.assets.forEach(asset => {
+        if (asset.name.endsWith(".zip")) {
+          const opt = document.createElement("option");
+          opt.value = asset.browser_download_url;
+          opt.textContent = asset.name.replace('.zip','').replace(/-/g,' ');
+          deviceSelect.appendChild(opt);
+        }
+      });
+    }
+
     // Append text into the <pre id="log">
     function log(msg) {
       const logEl = document.getElementById('log');
