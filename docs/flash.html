@@ -8,7 +8,6 @@
   <script type="module">
     import { ESPLoader, Transport } from 'https://unpkg.com/esptool-js@0.5.6/bundle.js';
     import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/esm/browser.js';
-    import { CryptoJS } from 'https://cdn.jsdelivr.net/npm/crypto-es@2.1.0/lib/index.js';
 
     let port, loader;
 
@@ -75,7 +74,6 @@
           const percent = Math.floor((written / total) * 100);
           log(`Image ${fileIdx + 1}: ${percent}%`);
         }
-        // optional MD5: calculateMD5Hash: img => CryptoJS.MD5(CryptoJS.enc.Latin1.parse(img)).toString()
       });
       await loader.after();  // reset the chip so it boots the new firmware
       log('✅ Flash complete.');
