@@ -18,17 +18,6 @@ An advanced HID injection platform for the ESP32-S3 featuring:
 
 ---
 
-## 📂 Source Structure
-
-| Directory      | Purpose                             |
-| -------------- | ----------------------------------- |
-| `src/`         | Core firmware logic (keyboard, USB) |
-| `src/web/`     | Embedded web UI files (`html_*.h`)  |
-| `src/Devices/` | Hardware drivers (TFT, GPIO)        |
-| `payloads/`    | Example and feature scripts         |
-
----
-
 ## 🧨 Attack Modes
 
 Use `ATTACKMODE` in payloads to change the USB behavior:
@@ -45,22 +34,7 @@ Example: `payloads/Examples/attackmode_demo.txt`
 
 ---
 
-## 🛠 Building and Flashing
-
-This project uses [PlatformIO](https://platformio.org/).
-
-```bash
-# Clone and enter the repo
-git clone https://github.com/x0SiN0x/n3wbsWiFiDucky.git
-cd n3wbsWiFiDucky
-
-# Build for your target board
-pio run -e esp32-s3-devkitc-8MB-OTA
-
-# Flash firmware over USB
-pio run -e esp32-s3-devkitc-8MB-OTA -t upload
-```
-You can always use the pre-built releases as well by simply using a web based flasher
+## 🛠 Flashing using a web based flasher
 
 To flash your ESP32 device:
 
