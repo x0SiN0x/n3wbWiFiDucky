@@ -66,7 +66,7 @@ To flash your ESP32 device:
 
 1. Go to [https://esptool.spacehuhn.com/](https://esptool.spacehuhn.com/)
 2. Connect your device over USB and select the correct port
-3. Download the appropriate `.zip` firmware package from [Releases](https://github.com/x0SiN0x/n3wbsWiFiDucky/releases)
+3. Download the appropriate `.zip` firmware package from [Releases](https://github.com/x0SiN0x/n3wbWiFiDucky/releases)
 4. Extract the `.zip` to get the `.bin` files:
 
    * `bootloader.bin` → `0x1000`
