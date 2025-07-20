@@ -18,6 +18,13 @@ An advanced HID injection platform for the ESP32-S3 featuring:
 
 ---
 
+## 🧨 Example Builds
+
+<img alt="WiFi Duck (n3wb edition)" src="content/IMG_8255.jpg" width="400">
+<img alt="WiFi Duck (n3wb edition)" src="content/IMG_8254.jpg" width="400">
+
+---
+
 ## 🧨 Attack Modes
 
 Use `ATTACKMODE` in payloads to change the USB behavior:
