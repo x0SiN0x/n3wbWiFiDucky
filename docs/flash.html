@@ -6,20 +6,18 @@
   <title>Flash Device</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module">
-    import { ESPLoader, Transport } from 'https://cdn.jsdelivr.net/npm/esptool-js@0.5.6/bundle.min.js';
-    import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
-    // optional: import CryptoJS if you want MD5 verification
-    import CryptoJS from 'https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/index.min.js';
+    import { ESPLoader, Transport } from 'https://cdn.jsdelivr.net/npm/esptool-js@0.5.6/lib/index.js';
+    import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.0/esm/index.js';
+    import CryptoJS from 'https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js';
 
     let port, loader;
 
+    // Request a serial port and create the loader
     async function connect() {
-      // ask the browser for a serial port
       port = await navigator.serial.requestPort();
       await port.open({ baudRate: 115200 });
-      const transport = new Transport(port);
 
-      // create ESPLoader with options (baudrate and a terminal interface)
+      const transport = new Transport(port);
       loader = new ESPLoader({
         transport,
         baudrate: 115200,
@@ -28,30 +26,30 @@
           writeLine: msg => log(msg),
           write: msg => log(msg)
         },
-        debugLogging: false,
+        debugLogging: false
       });
 
-      // main() connects, detects the chip and runs the stub
-      const chip = await loader.main();
+      const chip = await loader.main(); // connect, detect chip and run stub
       log(`Connected to: ${chip}`);
     }
 
+    // Flash a firmware ZIP selected by the user
     async function flash() {
-      const url = document.getElementById("deviceSelect").value;
+      const url = document.getElementById('deviceSelect').value;
       if (!url) {
-        log("Please select a device build.");
+        log('Please select a device build.');
         return;
       }
 
-      const erase = document.getElementById("eraseCheckbox").checked;
+      const erase = document.getElementById('eraseCheckbox').checked;
       const zipData = await fetch(url).then(r => r.arrayBuffer());
       const files = unzipSync(new Uint8Array(zipData));
 
-      // build the list of image segments; convert Uint8Array to binary string
+      // Build list of image segments
       const segments = [
-        { name: "bootloader.bin", address: 0x0000 },
-        { name: "partitions.bin", address: 0x8000 },
-        { name: "firmware.bin",   address: 0x10000 },
+        { name: 'bootloader.bin', address: 0x0000 },
+        { name: 'partitions.bin', address: 0x8000 },
+        { name: 'firmware.bin',   address: 0x10000 },
       ];
       const fileArray = [];
       for (const { name, address } of segments) {
@@ -63,39 +61,39 @@
         }
       }
       if (fileArray.length === 0) {
-        log("No firmware images found.");
+        log('No firmware images found.');
         return;
       }
 
-      log("Flashing…");
+      log('Flashing…');
       await loader.writeFlash({
         fileArray,
-        flashSize: 'keep',      // preserve the existing flash size setting
-        eraseAll: erase,        // erase before programming if the user checked the box
-        compress: true,         // compress data while flashing (matches esptool-js default)
+        flashSize: 'keep',
+        eraseAll: erase,
+        compress: true,
         reportProgress: (fileIdx, written, total) => {
           const percent = Math.floor((written / total) * 100);
           log(`Image ${fileIdx + 1}: ${percent}%`);
-        },
-        // optional MD5: calculateMD5Hash: img => CryptoJS.MD5(CryptoJS.enc.Latin1.parse(img)).toString(),
+        }
+        // optional MD5: calculateMD5Hash: img => CryptoJS.MD5(CryptoJS.enc.Latin1.parse(img)).toString()
       });
-      // reset the chip so it boots the new firmware
-      await loader.after();
-      log("✅ Flash complete.");
+      await loader.after();  // reset the chip so it boots the new firmware
+      log('✅ Flash complete.');
     }
 
-    // helper to append log text into the <pre id="log">
+    // Append text into the <pre id="log">
     function log(msg) {
-      const logEl = document.getElementById("log");
+      const logEl = document.getElementById('log');
       logEl.textContent += `\n> ${msg}`;
       logEl.scrollTop = logEl.scrollHeight;
     }
 
+    // Hook up UI events on page load
     window.onload = () => {
-      document.getElementById("connectBtn").onclick = connect;
-      document.getElementById("flashBtn").onclick = flash;
-      document.getElementsByName("releaseType").forEach(r => r.onchange = loadReleases);
-      document.getElementById("releaseSelect").onchange = populateDeviceList;
+      document.getElementById('connectBtn').onclick = connect;
+      document.getElementById('flashBtn').onclick = flash;
+      document.getElementsByName('releaseType').forEach(r => r.onchange = loadReleases);
+      document.getElementById('releaseSelect').onchange = populateDeviceList;
       loadReleases();
     };
   </script>
