@@ -6,10 +6,10 @@
   <title>Flash Device</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module">
-    import { ESPLoader, Transport } from 'https://cdn.jsdelivr.net/npm/esptool-js@0.5.6/lib/index.js';
-    import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.0/esm/index.js';
+    import { ESPLoader, Transport } from 'https://cdn.jsdelivr.net/npm/esptool-js@0.5.6/bundle.min.js';
+    import { unzipSync } from 'https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.min.js';
     // optional: import CryptoJS if you want MD5 verification
-    import CryptoJS from 'https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js';
+    import CryptoJS from 'https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/index.min.js';
 
     let port, loader;
 
