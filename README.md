@@ -54,6 +54,7 @@ To flash your ESP32 device:
    * `bootloader.bin` → `0x1000`
    * `partitions.bin` → `0x8000`
    * `firmware.bin`   → `0x10000`
+   * `littlefs.bin`   → `0x290000` (for the lilygo device only right now)
 5. Use the Web Flasher to upload those files at their respective offsets
 
 No special drivers or tools are needed — works in Chrome/Edge via Web Serial.
