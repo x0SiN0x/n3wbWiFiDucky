@@ -18,6 +18,13 @@ An advanced HID injection platform for the ESP32-S3 featuring:
 
 ---
 
+## Yes...
+
+* There will be bugs, i've forked some old code that had the initial feature set I wanted and I'm not a developer by trade!  But, it's coming along and im learning which was the main goal
+* It will be opensource once the code is not embarrassing :p (getting close)
+
+---
+
 ## 🧨 Example Builds
 
 <p align="center">
@@ -96,7 +103,6 @@ From here, you can:
 | `MEDIA_*`, `VOLUMEUP`, `MUTE`, etc.   | ✅             |
 | Locale switching (`LOCALE US`, etc.)  | ✅             |
 | Script chaining (`INCLUDE`)           | ❌ (not yet)   |
-| `CONTINUE`                            | ❌ (not found) |
 
 ---
 
