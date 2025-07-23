@@ -151,7 +151,7 @@ This project builds upon amazing work by:
 
 - [spacehuhn/WiFiDuck](https://github.com/spacehuhn/WiFiDuck)
 - [Hak5 Rubber Ducky](https://docs.hak5.org/hak5-usb-rubber-ducky) — original creators of DuckyScript
-- [ESP32 Arduino & TinyUSB](https://github.com/espressif/arduino-esp32)
+- Various other similar tools out there picking and choosind ideas that just made sense
 
 Maintained and enhanced by **@x0SiN0x** and **@x0jac0bx**.
 
