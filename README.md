@@ -15,7 +15,7 @@ A powerful HID injection platform built for the **ESP32-S2/S3**, designed for ha
 
 ## 🔥 Supported Features
 
-- ✅ Full Hak5 DuckyScript v1/v2/v3 interpreter (including `IF`, `WHILE`, `VAR`, etc.)
+- ✅ A majority of the DuckyScript v1/v2/v3 interpreter funcionality (including `IF`, `WHILE`, `VAR`, etc.)
 - ✅ Web-based interface for script management and configuration
 - ✅ USB HID injection (keyboard + mouse)
 - ✅ BLE HID support (Bluetooth attacks on compatible targets)
@@ -23,7 +23,6 @@ A powerful HID injection platform built for the **ESP32-S2/S3**, designed for ha
 - ✅ GPIO-triggered payload execution
 - ✅ LED and optional TFT screen for real-time feedback
 - ✅ Wi-Fi and mDNS access point with fallback captive portal
-- ✅ Preferences stored in flash via `PreferencesHelper`
 
 ---
 
