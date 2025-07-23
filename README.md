@@ -1,4 +1,4 @@
-# N3WB WiFi Ducky
+# 🦆 N3WB WiFi Ducky
 
 <p align="center">
     <img alt="WiFi Duck (n3wb edition)" src="content/n3wb_main_evil.png" width="400">
@@ -7,122 +7,153 @@
     <img alt="WiFi Duck (n3wb edition)" src="content/Under-Construction.png" width="300">
 </p>
 
-An advanced HID injection platform for the ESP32-S3 featuring:
+A powerful HID injection platform built for the **ESP32-S2/S3**, designed for hackers, red teamers, and tinkerers. Inspired by the original Hak5 USB Rubber Ducky, this project extends the functionality with modern features like **DuckyScript v3**, **BLE HID**, **web UI control**, and **GPIO-triggered payloads** — all in an open, self-hosted platform.
 
-* Full support for Hak5 DuckyScript v1/v2/v3 (including IF/ELSE/WHILE/DEFINE/VAR/REPEAT)
-* Web interface for payload management
-* BLE + USB HID keyboard/mouse
-* USB Mass Storage mode
-* GPIO-triggered payload execution
-* LED/TFT feedback
+> ⚠️ This is a **tool for learning, research, automation, and security testing**. Use responsibly and only on devices you own or have explicit permission to test.
 
 ---
 
-## Yes...
+## 🔥 Supported Features
 
-* There will be bugs, i've forked some old code that had the initial feature set I wanted and I'm not a developer by trade!  But, it's coming along and im learning which was the main goal
-* It will be opensource once the code is not embarrassing :p (getting close)
+- ✅ Full Hak5 DuckyScript v1/v2/v3 interpreter (including `IF`, `WHILE`, `VAR`, etc.)
+- ✅ Web-based interface for script management and configuration
+- ✅ USB HID injection (keyboard + mouse)
+- ✅ BLE HID support (Bluetooth attacks on compatible targets)
+- ✅ USB Mass Storage mode (mount drive with payloads)
+- ✅ GPIO-triggered payload execution
+- ✅ LED and optional TFT screen for real-time feedback
+- ✅ Wi-Fi and mDNS access point with fallback captive portal
+- ✅ Preferences stored in flash via `PreferencesHelper`
+
+---
+
+## 🎯 Legitimate Use Cases
+
+This tool can be used for a wide range of non-malicious purposes:
+
+- Penetration testing in controlled environments
+- Red teaming engagements with proper authorization
+- Automating kiosk input, form entry, or developer tools
+- Accessibility or usability testing of input interfaces
+- Educational purposes — learn scripting, USB, BLE, and embedded development
+
+---
+
+## ⚠️ Ethical Use Reminder
+
+**This project is for educational and ethical hacking purposes only.** Unauthorized use against devices, networks, or systems without consent may be illegal and unethical. Always get permission before deploying this tool in the field.
 
 ---
 
 ## 🧨 Example Builds
 
 <p align="center">
-    <img alt="WiFi Duck (n3wb edition)" src="content/IMG_8255.jpg" width="400"> <img alt="WiFi Duck (n3wb edition)" src="content/IMG_8254.jpg" width="400">
+    <img alt="WiFi Duck (n3wb edition)" src="content/IMG_8255.jpg" width="400">
+    <img alt="WiFi Duck (n3wb edition)" src="content/IMG_8254.jpg" width="400">
 </p>
 
 ---
 
-## 🧨 Attack Modes
+## 🚀 Attack Modes
 
-Use `ATTACKMODE` in payloads to change the USB behavior:
+Switch USB functionality dynamically from DuckyScript:
 
 ```ducky
-ATTACKMODE HID        # USB keyboard/mouse
-ATTACKMODE STORAGE    # USB Mass Storage
-ATTACKMODE HID STORAGE # Combined mode
+ATTACKMODE HID             # Emulates keyboard/mouse
+ATTACKMODE STORAGE         # Emulates USB Mass Storage
+ATTACKMODE HID STORAGE     # Combines HID and storage
 ```
 
-Use `BUTTON_DEF <filename>` to define the script executed when the physical button is pressed.
+Define a payload for the physical button:
+
+```ducky
+BUTTON_DEF payloads/my_script.txt
+```
 
 Example: `payloads/Examples/attackmode_demo.txt`
 
 ---
 
-## 🛠 Flashing using a web based flasher
-
-To flash your ESP32 device:
-
-1. Go to [https://esptool.spacehuhn.com/](https://esptool.spacehuhn.com/)
-2. Connect your device over USB and select the correct port
-3. Download the appropriate `.zip` firmware package from [Releases](https://github.com/x0SiN0x/n3wbWiFiDucky/releases)
-4. Extract the `.zip` to get the `.bin` files:
-
-   * `bootloader.bin` → `0x1000`
-   * `partitions.bin` → `0x8000`
-   * `firmware.bin`   → `0x10000`
-   * `littlefs.bin`   → `0x290000` (for the lilygo device only right now)
-5. Use the Web Flasher to upload those files at their respective offsets
-
-No special drivers or tools are needed — works in Chrome/Edge via Web Serial.
-
-
----
-
 ## 🌐 Web Interface & WiFi
 
-If no known Wi-Fi is available, the device creates a fallback AP:
+If no Wi-Fi is configured, the device launches an AP:
 
-* **SSID**: `iPh0ne12`
-* **Password**: `12345678`
+- **SSID**: `iPh0ne12`
+- **Password**: `12345678`
+- **Web UI**: [http://192.168.4.1](http://192.168.4.1) or [http://n3wbswifiduck.local](http://n3wbswifiduck.local)
 
-Access the interface at:
+Use the interface to:
 
-* `http://192.168.4.1`
-* Or `http://n3wbswifiduck.local` (via mDNS)
-
-From here, you can:
-
-* Upload/edit/run DuckyScript payloads
-* Set Wi-Fi, locale, autorun, button behavior
+- Upload/edit/run DuckyScript payloads
+- Configure Wi-Fi, locale, autorun, GPIO, and more
 
 ---
 
-## 📝 Supported DuckyScript Features
+## 🛠 Flashing via Web Serial
 
-| Feature                               | Supported     |
-| ------------------------------------- | ------------- |
-| `STRING`, `ENTER`, `TAB`, `ESC`, etc. | ✅             |
-| `DELAY`, `DEFAULT_DELAY`, `REPEAT`    | ✅             |
-| `REM` (comments)                      | ✅             |
-| `IF`, `ELSE`, `ENDIF`                 | ✅             |
-| `DEFINE`, `VAR`                       | ✅             |
-| `WHILE`, `ENDWHILE`, `BREAK`          | ✅             |
-| `ATTACKMODE`, `BUTTON_DEF`            | ✅             |
-| `MOUSEMOVE`, `CLICK`, `SCROLL`        | ✅             |
-| `MEDIA_*`, `VOLUMEUP`, `MUTE`, etc.   | ✅             |
-| Locale switching (`LOCALE US`, etc.)  | ✅             |
-| Script chaining (`INCLUDE`)           | ❌ (not yet)   |
+To flash your ESP32-S2/S3 device:
 
----
+1. Visit [https://esptool.spacehuhn.com/](https://esptool.spacehuhn.com/)
+2. Connect your board via USB and select the serial port
+3. Download the `.zip` firmware from [Releases](https://github.com/x0SiN0x/n3wbWiFiDucky/releases)
+4. Extract and flash the `.bin` files:
 
-## 🧪 Additional Features
+| File           | Offset     |
+|----------------|------------|
+| `bootloader.bin` | `0x1000`   |
+| `partitions.bin` | `0x8000`   |
+| `firmware.bin`   | `0x10000`  |
+| `littlefs.bin`   | `0x290000` *(LilyGO only)* |
 
-* ✅ BLE HID injection via `BleComboKeyboard`
-* ✅ USB Mass Storage mode (FFat + USB MSC)
-* ✅ LED status feedback
-* ✅ GPIO trigger configuration
-* ✅ TFT screen support (optional)
+Works in modern browsers (Chrome, Edge) with no drivers required.
 
 ---
 
-## 🧠 Credits
+## 📝 DuckyScript Feature Matrix
 
-Based on work from:
+| Feature                                  | Supported     |
+|------------------------------------------|---------------|
+| `STRING`, `ENTER`, `TAB`, etc.           | ✅             |
+| `DELAY`, `DEFAULT_DELAY`, `REPEAT`       | ✅             |
+| `REM` (comments)                         | ✅             |
+| `IF`, `ELSE`, `ENDIF`                    | ✅             |
+| `DEFINE`, `VAR`                          | ✅             |
+| `WHILE`, `ENDWHILE`, `BREAK`             | ✅             |
+| `ATTACKMODE`, `BUTTON_DEF`               | ✅             |
+| `MOUSEMOVE`, `CLICK`, `SCROLL`           | ✅             |
+| `MEDIA_*`, `VOLUMEUP`, `MUTE`, etc.      | ✅             |
+| Locale switching (`LOCALE US`, etc.)     | ✅             |
+| Script chaining (`INCLUDE`)              | ❌ (planned)   |
 
-* [spacehuhn/WiFiDuck](https://github.com/spacehuhn/WiFiDuck)
-* [Hak5 DuckyScript](https://docs.hak5.org/hak5-usb-rubber-ducky)
+---
 
-Fork maintained and extended by **x0SiN0x**.
+## 🔧 Advanced Features
+
+- BLE HID via `BleComboKeyboard` (experimental)
+- USB MSC + FFat integration for drag-and-drop scripts
+- Dynamic GPIO trigger configuration
+- Optional TFT display support
+- Persistent user settings with `Preferences`
+
+---
+
+## 🧪 Development Notes
+
+- Expect bugs — this is a work in progress!
+- Originally forked from an older ESP32-based DuckyScript repo
+- Goals: modernize, extend, and learn along the way
+- Will be fully open source once stabilized and cleaned up
+
+---
+
+## 🙏 Credits & Inspiration
+
+This project builds upon amazing work by:
+
+- [spacehuhn/WiFiDuck](https://github.com/spacehuhn/WiFiDuck)
+- [Hak5 Rubber Ducky](https://docs.hak5.org/hak5-usb-rubber-ducky) — original creators of DuckyScript
+- [ESP32 Arduino & TinyUSB](https://github.com/espressif/arduino-esp32)
+
+Maintained and enhanced by **@x0SiN0x** and **@x0jac0bx**.
 
 ---
